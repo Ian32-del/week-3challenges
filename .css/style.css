@@ -1,0 +1,30 @@
+h1{
+   text-align: center;
+   font-family: Arial, Helvetica, sans-serif;
+    
+}
+#list{
+    display: flex;
+    justify-content: space-around;
+}
+#place-holder{
+    border: 2px solid black;
+    border-color: aqua;
+    border-radius: 8px;
+    margin-bottom: 3rem;
+    justify-content: space-around;
+
+}
+
+
+
+
+#posters{
+    border: 2px solid black;
+    width: 900px;
+    text-align: center;
+    margin: auto;
+    height: 80vh;
+}
+
+
