@@ -1,42 +1,76 @@
-document.addEventListener('DOMContentLoaded',() =>{})
+function getFilms(films){
+    const list = document.getElementById('film')
 
-    fetch("http://localhost:3000/films")
-        .then((response) => response.json())
-        .then((data) => {
-            const films = document.getElementById("place-holder");
-
-            data.forEach((movie) => {
-                const pi = document.createElement("pi");
-                pi.textContent = movie.title;
-                pi.classList.add("film");
-
-                if (movie.tickets_sold === movie.capacity) {
-                    pi.classList.add("sold-out");
-                }
-                pi.addEventListener("click", () => {
-                    displayMovieDetails(movie);
-                });
-                films.appendChild(pi);
-            });
+    films.forEach(movies => {
+        const list_film = document.createElement('li')
+        list_film.classList = 'listings'
+        list_film.innerText = movies.title
+        list.appendChild(list_film)
 
 
-            if (data.length > 0) {
-                displayMovieDetails(data[0]);
+        list_film.addEventListener("click", function(){
+            showAllMovieDetails(movies)
+        })
+    }) 
+}
+function showAllMovieDetails(movie){
+    const value = document.querySelector(".film-details")
+    console.log(Object.values(movie))
+    const id = document.createElement("p")
+    id.innerText = movie.id
+    const title =document.createElement("p") 
+    title.innerText = movie.title
+    const runtime = document.createElement("p")
+    runtime.innerText = movie.runtime
+    const availableTickets = document.createElement("p")
+    availableTickets.innerText = "tickets available:" + (movie.capacity - movie.tickets_sold)
+    const showtime = document.createElement("p")
+    showtime.innerText = movie.showtime
+    const description = document.createElement("p")
+    description.innerText = movie.description
+    const poster = document.createElement("img")
+    poster.src = movie.poster
+
+    const button = document.createElement('button')
+    button.innerText = "Buy Ticket"
+
+    button.addEventListener("click",(e)=> {
+        if(movie.tickets_sold < movie . capacity){
+            e.preventDefault()
+            
+            movie.tickets_sold = movie.tickets_sold + 1
+            availableTickets.innerText = "Tickets available : "+(movie.capacity - movie.tickets_sold)
+            if(movie.tickets_sold === movie.capacity){
+                button.innerText ="Sold Out"
             }
-        });
-    function displayMovieDetails(movie) {
-        const dash = document.createElement('div')
-        dash.className = 'film-details'
-        const availableTickets = movie.capacity - movie.tickets_sold
-        dash.innerHTML = `
-            <p>Runtime:${movie.runtime}</p>
-            <p>capacity:${movie.capacity}</p>
-            <p>showtime:${movie.showtime}</p>
-            <p>tickets_sold:${movie.tickets_sold}</p>
-            <p id = "description">Description:${movie.decription}</p>
-            <button>Buy Ticket</button>
-            <img src = "${movie.poster}"/>
-            `
-        document.getElementById('posters').appendChild(dash)
-    }
+        }
+    })
+
+    value.innerText=" "
+    value.appendChild(id)
+    value.appendChild(title)
+    value.appendChild(runtime)
+    value.appendChild(availableTickets)
+    value.appendChild(showtime)
+    value.appendChild(description)
+    value.appendChild(poster)
+    value.appendChild(button)
+
+}
+
+function getDetails(){
+    fetch("http://localhost:3000/films")
+    .then(res => res.json())
+    .then(data =>{
+        getFilms(data)
+    })
+}
+document.addEventListener('DOMContentLoaded',(e) => {
+    getDetails()
+})
+    
+
+
+   
+   
 

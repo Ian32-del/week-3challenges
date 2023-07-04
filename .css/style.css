@@ -16,15 +16,17 @@ h1{
 
 }
 
-
-
-
-#posters{
-    border: 2px solid black;
-    width: 900px;
-    text-align: center;
-    margin: auto;
-    height: 80vh;
+img{
+    height: 50vh;
+    width: 300px;
 }
+button{
+    background-color: blue;
+    padding: 8px;
+    
+}
+
+
+
 
 
