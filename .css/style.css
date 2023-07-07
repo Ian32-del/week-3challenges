@@ -3,6 +3,9 @@ h1{
    font-family: Arial, Helvetica, sans-serif;
     
 }
+body{
+    background-color: grey;
+}
 #list{
     display: flex;
     justify-content: space-around;
